@@ -9,13 +9,43 @@ $('#currentDay').text(currentDay)
 $(function () {
 
 $(".saveBtn").on('click', function () {
+    // the description is grabbing the description written by the user
+    // the timeblock is grabbing which timeblock the user is writing on or which one is saved
+
     let description = $(this).siblings(".description").val();
     let timeBlock = $(this).parent(".time-block").attr("id")
     console.log(description)
     console.log(timeBlock)
 })
+// Function to set color depending on time of the day
+function timeColor(){
+// this time variable is for the hour of the day to check if it is past present or future
+let time = dayjs().hour();
 
+$(".time-block").each(function (){
+    var timeBlockhr = parseInt($(this).attr("id").split("-")[1]);
 
+if (timeBlockhr === time){
+    $(this).removeClass("future")
+    $(this).removeClass("past")
+    $(this).addClass("present")
+}
+
+else if (timeBlockhr < time){
+    $(this).removeClass("future");
+    $(this).removeClass("present");
+    $(this).addClass("past");
+}
+
+else {
+    $(this).removeClass("past");
+    $(this).removeClass("present");
+    $(this).addClass("future");
+}
+})
+
+}
+timeColor()
     // TODO: Add a listener for click events on the save button. This code should
     // use the id in the containing time-block as a key to save the user input in
     // local storage. HINT: What does `this` reference in the click listener
