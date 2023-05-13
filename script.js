@@ -16,6 +16,7 @@ $(".saveBtn").on('click', function () {
     let timeBlock = $(this).parent(".time-block").attr("id")
     console.log(description)
     console.log(timeBlock)
+    localStorage.setItem(description, timeBlock)
 })
 // Function to set color depending on time of the day
 function timeColor(){
@@ -23,6 +24,7 @@ function timeColor(){
 let time = dayjs().hour();
 
 $(".time-block").each(function (){
+    //this is turning the strings for example "hour-9" into an integer, specifically grabbing the 9
     var timeBlockhr = parseInt($(this).attr("id").split("-")[1]);
 
 if (timeBlockhr === time){
